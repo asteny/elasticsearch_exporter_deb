@@ -1,0 +1,22 @@
+[Unit]
+Description=Prometheus exporter for various metrics about ElasticSearch, written in Go
+Documentation=https://github.com/justwatchcom/elasticsearch_exporter
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=elasticsearch_exporter
+Group=elasticsearch_exporter
+Restart=always
+RestartSec=5
+StartLimitInterval=0
+StartLimitBurst=99999
+EnvironmentFile=-/etc/default/elasticsearch_exporter
+ExecStart=/usr/bin/elasticsearch_exporter $CMD_OPTS
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGINT
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target

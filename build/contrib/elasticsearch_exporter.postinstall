@@ -1,0 +1,28 @@
+#!/bin/bash
+
+USER="elasticsearch_exporter"
+GROUP="elasticsearch_exporter"
+DESC="Prometheus exporter for various metrics about ElasticSearch"
+
+
+case "$1" in
+  configure)
+
+    # create group
+    if ! getent group ${GROUP} >/dev/null; then
+       /usr/sbin/addgroup --quiet --system ${GROUP}
+    fi
+
+    # create colord user if it isn't already there
+    if ! getent passwd ${USER} >/dev/null; then
+       /usr/sbin/adduser --system --ingroup ${GROUP} --no-create-home ${USER} --gecos "${DESC}"
+    fi
+
+  ;;
+esac
+
+
+/bin/systemctl daemon-reload
+
+exit 0
+

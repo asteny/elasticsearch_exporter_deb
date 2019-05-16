@@ -1,0 +1,20 @@
+dist: xenial
+
+before_install:
+- sudo apt-get install -y ruby ruby-dev rubygems build-essential make libffi-dev devscripts
+- sudo gem install -n /usr/local/bin --no-ri --no-rdoc fpm
+
+addons:
+  apt:
+    update: true
+
+script:
+- sudo make
+
+deploy:
+  provider: bintray
+  file: build/packages/descriptor.json
+  user: asten
+  key:
+    secure: Q5Z2XdzI5CDfR3sRnsmXQmxo2CZ5Fe/erOhj3PMfyREfMDXPo1UuJ2B4h+ZiymqeAwEnD9nVxgot/iPiJ8Y+J1tv/cJDF5zo8DEd9nUE5V7d3/TMNF0g8/Co5fJFOJLkTRIvpkESflbpSRIulKMFWkgo/ytHv3AeVsMGS2lkqR7sCFvk+AOVt0SWWW5SmAodM/Kgut5tk7gh9Pmzwix3pZ8xeUIYCQSwDtv39IgCg/KC161PyDm14akeJbB2bk76udRErKU+mA83WWp2g7IyqI47vrE2VLNHu/O0U2Z+TCcdtxwdRIuYtE7OYAk1d06YR5C5I38/uk6jpkI7nXiAOXeUH4o3Jk/p3VKyMFbUPlvctoMOvsjQJuNI+X5DFL47inMhZlTGucJWadGze/jvr4D5auIZOt6kSJ2xBiv2bMbTwi85HKJRGMdB2SipIk9Xo1vhOxe+FRpYaxcXMftwpr4QGrrwYSvWqOzXASu7im8unWaAwqeaiF5EXE6E9koM5Ln5dn8wYDokBcc46SKgqD/eTY37mRKaOQYVPIDQsFy56cRTBHi94fgdijQm2dwzdZGygoH0qzTWrgo4/5P7I6U1LeL1/40AFG4eBr0mfEyz9plfm6hpZKMqUxHapuzo0fU5c//pZR0eumQttSUwUpHJw+RKTNEF2fL969f/m4E=
+  skip_cleanup: true

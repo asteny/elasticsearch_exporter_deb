@@ -1,0 +1,35 @@
+#!/bin/bash
+
+set -e
+
+USER="elasticsearch_exporter"
+GROUP="elasticsearch_exporter"
+DESC="Prometheus exporter for various metrics about ElasticSearch"
+
+
+case "$1" in
+  remove)
+    /bin/systemctl stop elasticsearch_exporter
+  ;;
+
+  upgrade)
+    /bin/systemctl restart elasticsearch_exporter
+  ;;
+
+  purge)
+    /bin/rm -fr /etc/elasticsearch_exporter /etc/default/elasticsearch_exporter
+  ;;
+
+  remove|failed-upgrade|abort-install|abort-upgrade|disappear)
+    /bin/systemctl restart elasticsearch_exporter
+    exit 0
+  ;;
+
+  *)
+    echo "postrm called with unknown argument \`$1'" >&2
+    exit 1
+  ;;
+
+esac
+
+exit 0
