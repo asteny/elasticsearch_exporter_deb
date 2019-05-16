@@ -14,7 +14,7 @@ apt-get install gnupg2 apt-transport-https ca-certificates -y
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
 echo "deb https://dl.bintray.com/asten/elasticsearch_exporter xenial main" | tee -a /etc/apt/sources.list.d/elasticsearch_exporter.list
 apt-get update
-apt-get install elasticsearch_exporter -y
+apt-get install elasticsearch-exporter -y
 
 ```
 
